@@ -31,8 +31,25 @@ let productList = [{
     total: 0
 }]
 
-function add() {
-    updateTotalPrice()
+function add(item) {
+    addingProductPrice(item)
+    updateTotalPrice(item)
+    document.getElementById(item).value = productList[0].total;
+    updateTotalPrice(item);
+}
+
+function addingProductPrice(item) {
+   switch(item) {
+       case 'A':
+           productList[0].count += 1;
+        if(productList[0].count % 3 === 0){
+            productList[0].total += productList[0].price;
+            productList[0].total = productList[0].total - 20;
+        } else {
+            productList[0].total += productList[0].price;
+        }
+        break;
+   }
 }
 
 function remove() {
@@ -40,5 +57,5 @@ function remove() {
 }
 
 function updateTotalPrice() {
-
+    document.getElementById('total').value = productList[0].total;
 }
