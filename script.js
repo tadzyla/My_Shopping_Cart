@@ -31,101 +31,38 @@ let productList = [{
     total: 0
 }]
 
-function add(item) {
-    updateProductListByAdding(item)
-    const product = productList.find(element => element.id === item);
-    document.getElementById(item).value = product.total;
-    updateTotalPrice();
-}
-
 function updateProductListByAdding(item) {
-    switch (item) {
-        case 'A':
-            productList[0].count += 1;
-    
-        if(productList[0].count % productList[0].specialCount === 0){
-            productList[0].total += productList[0].price;
-            productList[0].total = productList[0].total - productList[0].discount;
-        } else {
-            productList[0].total += productList[0].price;
-        }
-        break;
-    
-        case 'B':
-            productList[1].count += 1;
-    
-            if(productList[1].count % productList[1].specialCount === 0){
-                productList[1].total += productList[1].price;
-                productList[1].total = productList[1].total - productList[1].discount;
-            } else {
-                productList[1].total += productList[1].price;
-            }
-                break;
-    
-        case 'C':
-            productList[2].count += 1;
-            productList[2].total += productList[2].price;
-                break;
-        default:
-            productList[3].count += 1;
-            productList[3].total += productList[3].price;
-        }
+    const product = productList.find(element => element.id === item);
+    const index = productList.indexOf(product);
+    productList[index].count += 1;
+    productList[index].total += productList[index].price;
+    if(productList[index].discount>0) {
+       if (productList[index].count % productList[index].specialCount === 0) {
+        productList[index].total = productList[index].total - productList[index].discount
+        }   
+    }
 }
 
-function remove(item) {
-    updateProductListByRemoving(item)
+
+function update(item, toRemove) {
+    (toRemove)? updateProductListByRemoving(item) : updateProductListByAdding(item);
     const product = productList.find(element => element.id === item);
     document.getElementById(item).value = product.total;
     updateTotalPrice()
 }
 
 function updateProductListByRemoving(item) {
-    switch (item) {
-        case 'A':
-    
-        if(productList[0].count % productList[0].specialCount === 0 && productList[0].total>=50){
-            productList[0].count -= 1;
-            productList[0].total -= productList[0].price;
-            productList[0].total = productList[0].total + productList[0].discount;
-        } else if(productList[0].total>=50) {
-            productList[0].count -= 1;
-            productList[0].total -= productList[0].price;
-        }
-        else {
-            alert("You can not remove any more items!");
-        }
-             break;
-    
-        case 'B':
-            if(productList[1].count % productList[1].specialCount === 0 && productList[1].total>=30){
-                productList[1].count -= 1;
-                productList[1].total -= productList[1].price;
-                productList[1].total = productList[1].total + productList[1].discount;
-            } else if( productList[1].total>=30){
-                productList[1].count -= 1;
-                productList[1].total -= productList[1].price;
-            } else {
-                alert("You can not remove any more items!");
-            }
-                break;
-    
-        case 'C':
-            if( productList[2].total >= 20) {
-            productList[2].count -= 1;
-            productList[2].total -= productList[2].price;
-            } else {
-                alert("You can not remove any more items!");
-
-            }
-                break;
-        default:
-            if( productList[3].total >= productList[3].price) {
-            productList[3].count -= 1;
-            productList[3].total -= productList[3].price;
-            } else {
-                alert("You can not remove any more items!");
-
-            }
+    const product = productList.find(element => element.id === item);
+    const index = productList.indexOf(product);
+    if(productList[index].discount > 0 && productList[index].count % productList[index].specialCount === 0 && productList[index].total>=productList[index].price) {
+        productList[index].count -= 1;
+        productList[index].total -= productList[index].price 
+        productList[index].total = productList[index].total + productList[index].discount
+    } else if(productList[index].total>=productList[index].price) {
+        productList[index].count -= 1;
+        productList[index].total -= productList[index].price;
+    }   else {
+        alert("You can not remove any more items!");              
     }
 }
 
