@@ -3,3 +3,6 @@ table, th {
     text-align: center;
     width: 30%
 }
+h1 {
+    padding-left: 2rem;
+}
