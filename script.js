@@ -2,7 +2,7 @@ let productList = [{
     id: 'A',
     price: 50,
     specialCount: 3,
-    specialPrice:130, 
+    discount: 20, 
     count:0,
     total:0
 },
@@ -10,7 +10,7 @@ let productList = [{
     id: 'B',
     price: 30,
     specialCount: 2,
-    specialPrice:45, 
+    discount: 15, 
     count:0,
     total: 0
 },
@@ -18,7 +18,7 @@ let productList = [{
     id: 'C',
     price: 20,
     specialCount: 0,
-    specialPrice:0,
+    discount: 0,
     count:0,
     total: 0
 },
@@ -26,7 +26,7 @@ let productList = [{
     id: 'D',
     price: 15,
     specialCount: 0,
-    specialPrice:0,
+    discount: 0,
     count:0,
     total: 0
 }]
@@ -43,9 +43,9 @@ function updateProductListByAdding(item) {
         case 'A':
             productList[0].count += 1;
     
-        if(productList[0].count % 3 === 0){
+        if(productList[0].count % productList[0].specialCount === 0){
             productList[0].total += productList[0].price;
-            productList[0].total = productList[0].total - 20;
+            productList[0].total = productList[0].total - productList[0].discount;
         } else {
             productList[0].total += productList[0].price;
         }
@@ -54,9 +54,9 @@ function updateProductListByAdding(item) {
         case 'B':
             productList[1].count += 1;
     
-            if(productList[1].count % 2 === 0){
+            if(productList[1].count % productList[1].specialCount === 0){
                 productList[1].total += productList[1].price;
-                productList[1].total = productList[1].total - 15;
+                productList[1].total = productList[1].total - productList[1].discount;
             } else {
                 productList[1].total += productList[1].price;
             }
@@ -83,10 +83,10 @@ function updateProductListByRemoving(item) {
     switch (item) {
         case 'A':
     
-        if(productList[0].count % 3 === 0 && productList[0].total>=50){
+        if(productList[0].count % productList[0].specialCount === 0 && productList[0].total>=50){
             productList[0].count -= 1;
             productList[0].total -= productList[0].price;
-            productList[0].total = productList[0].total + 20;
+            productList[0].total = productList[0].total + productList[0].discount;
         } else if(productList[0].total>=50) {
             productList[0].count -= 1;
             productList[0].total -= productList[0].price;
@@ -97,10 +97,10 @@ function updateProductListByRemoving(item) {
              break;
     
         case 'B':
-            if(productList[1].count % 2 === 0 && productList[1].total>=30){
+            if(productList[1].count % productList[1].specialCount === 0 && productList[1].total>=30){
                 productList[1].count -= 1;
                 productList[1].total -= productList[1].price;
-                productList[1].total = productList[1].total + 15;
+                productList[1].total = productList[1].total + productList[1].discount;
             } else if( productList[1].total>=30){
                 productList[1].count -= 1;
                 productList[1].total -= productList[1].price;
