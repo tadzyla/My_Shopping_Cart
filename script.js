@@ -67,5 +67,7 @@ function updateProductListByRemoving(item) {
 }
 
 function updateTotalPrice() {
-    document.getElementById('total').value = productList[0].total + productList[1].total + productList[2].total + productList[3].total;
-}
+    document.getElementById('total').value = productList.reduce((sum, p) => {
+        return sum + p.total
+    }, 0)
+    };
